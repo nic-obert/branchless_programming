@@ -1,5 +1,6 @@
-#include <cstring>
 #include <iostream>
+
+#include "bcstring.hh"
 
 
 int recursive_search(const char* bytes, unsigned int index, unsigned int length, char target) {
@@ -60,11 +61,11 @@ int linear_search(const char* bytes, unsigned int length, char target) {
 int main() {
 
     const char* str = "Hi nic\0";
-    unsigned int length = strlen(str);
+    unsigned int length = bstrlen(str);
 
     int index_of_c = linear_search(str, length, 'c');
 
-    std::cout << "Index of c is " << index_of_c << ", length is " << strlen(str) << std::endl;
+    std::cout << "Index of c is " << index_of_c << ", length is " << bstrlen(str) << std::endl;
 
 }
 

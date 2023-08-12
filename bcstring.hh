@@ -39,3 +39,43 @@ unsigned int bstrlen(const char* str) {
     return recursive_strlen(str, 0);
 }
 
+
+/// @brief Return a new uppercase version of the string
+/// @param str the stirng to uppercase
+/// @return the new uppercased string
+const char* to_upper_case(const char* str) {
+
+    unsigned int len = bstrlen(str);
+    char* new_str = (char*) malloc(len);
+
+    unsigned int i;
+
+    bfor(i = 0, i < len, i++, {
+        new_str[i] = str[i] - 32 * (str[i] >= 'a' && str[i] <= 'z');
+    });
+
+    new_str[len] = '\0';
+
+    return new_str;
+}
+
+
+/// @brief Return a new lowercase version of the string
+/// @param str the stirng to lowercase
+/// @return the new lowercased string
+const char* to_lower_case(const char* str) {
+
+    unsigned int len = bstrlen(str);
+    char* new_str = (char*) malloc(len);
+
+    unsigned int i;
+
+    bfor(i = 0, i < len, i++, {
+        new_str[i] = str[i] + 32 * (str[i] >= 'A' && str[i] <= 'Z');
+    });
+
+    new_str[len] = '\0';
+
+    return new_str;
+}
+

@@ -63,3 +63,20 @@
     ;                                                   \
 }
 
+
+/// @brief Execute a callback function if the condition is met
+/// @param condition the condition to check
+/// @param callback the callback function to execute
+void if_then(bool condition, void (*callback)()) {
+
+    /// A struct containing handler functions
+    struct Local {
+        /// Handler function in case the condition is false (do nothing)
+        static void c0() {}
+    };
+
+    void (*cases[2])() = { Local::c0, callback };
+
+    (*cases[condition])();
+}
+
