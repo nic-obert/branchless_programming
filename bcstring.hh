@@ -52,7 +52,7 @@ usize strlen(const char* str) {
 /// @brief Return a new uppercase version of the string
 /// @param str the stirng to uppercase
 /// @return the new uppercased string
-const char* to_upper_case(const char* str) {
+char* to_upper_case(const char* str) {
 
     usize len = strlen(str);
     char* new_str = (char*) malloc(len);
@@ -72,7 +72,7 @@ const char* to_upper_case(const char* str) {
 /// @brief Return a new lowercase version of the string
 /// @param str the stirng to lowercase
 /// @return the new lowercased string
-const char* to_lower_case(const char* str) {
+char* to_lower_case(const char* str) {
 
     usize len = strlen(str);
     char* new_str = (char*) malloc(len);
@@ -104,7 +104,7 @@ void memcpy(void* dest, const void* src, usize num) {
 /// @param dest address of the destination memory region
 /// @param src address of the source memory region
 /// @param num number of bytes to copy
-void memmove(void* dest, void* src, usize num) {
+void memmove(void* dest, const void* src, usize num) {
 
     auto overlapping = [dest, src, num] () -> void {
         void* buf = malloc(num);
