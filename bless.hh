@@ -1,6 +1,9 @@
 #pragma once
 
 
+#include <functional>
+
+
 #define RTSZ(i) RTSZ1(i, __LINE__)
 #define RTSZ1(i, l) RTSZ2(i, l)
 #define RTSZ2(i, l) RTSZ_##i##_##l
@@ -67,16 +70,25 @@
 /// @brief Execute a callback function if the condition is met
 /// @param condition the condition to check
 /// @param callback the callback function to execute
-void if_then(bool condition, void (*callback)()) {
+void if_then(bool condition, std::function<void()> callback) {
 
     /// A struct containing handler functions
-    struct Local {
+    struct H {
         /// Handler function in case the condition is false (do nothing)
         static void c0() {}
     };
 
-    void (*cases[2])() = { Local::c0, callback };
+    std::function<void()> cases[2] = { H::c0, callback };
 
-    (*cases[condition])();
+    cases[condition]();
+}
+
+
+void if_then_else(bool condition, std::function<void()> then_callback, std::function<void()> else_callback) {
+
+    std::function<void()> cases[2] = { else_callback, then_callback };
+
+    cases[condition]();
+
 }
 

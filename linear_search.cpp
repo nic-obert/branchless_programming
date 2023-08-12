@@ -3,27 +3,27 @@
 #include "bcstring.hh"
 
 
-int recursive_search(const char* bytes, unsigned int index, unsigned int length, char target) {
+isize recursive_search(const char* bytes, usize index, usize length, char target) {
 
-    typedef int (*SearchF)(const char*, unsigned int, unsigned int, char);
+    typedef isize (*SearchF)(const char*, usize, usize, char);
 
     /// A Local struct to contain the case handler functions
     struct Local {
 
         /// Bytes are not equal, continue the search
-        static int not_equal(const char* bytes, unsigned int index, unsigned int length, char target) {
+        static isize not_equal(const char* bytes, usize index, usize length, char target) {
             // Increment the index to check the next character
             index ++;
 
             struct Local {
 
                 /// Index and length are equal, end the search with failure
-                static int equal(const char* bytes, unsigned int index, unsigned int length, char target) {
+                static isize equal(const char* bytes, usize index, usize length, char target) {
                     return -1;
                 }
 
                 /// Index and length are not equal, continue the search
-                static int not_equal(const char* bytes, unsigned int index, unsigned int length, char target) {
+                static isize not_equal(const char* bytes, usize index, usize length, char target) {
                     return recursive_search(bytes, index, length, target);
                 }
             };
@@ -35,7 +35,7 @@ int recursive_search(const char* bytes, unsigned int index, unsigned int length,
         }
 
         /// Bytes are equal, end the search with success
-        static int equal(const char* bytes, unsigned int index, unsigned int length, char target) {
+        static isize equal(const char* bytes, usize index, usize length, char target) {
             return index;
         }
 
@@ -52,7 +52,7 @@ int recursive_search(const char* bytes, unsigned int index, unsigned int length,
 /// Search for the specified target byte. 
 ///
 /// Return the index of the char. Return -1 is not found.
-int linear_search(const char* bytes, unsigned int length, char target) {
+isize linear_search(const char* bytes, usize length, char target) {
     // Start the recursive search and set the start index to 0
     return recursive_search(bytes, 0, length, target);
 }
@@ -61,11 +61,11 @@ int linear_search(const char* bytes, unsigned int length, char target) {
 int main() {
 
     const char* str = "Hi nic\0";
-    unsigned int length = bstrlen(str);
+    usize length = strlen(str);
 
-    int index_of_c = linear_search(str, length, 'c');
+    isize index_of_c = linear_search(str, length, 'c');
 
-    std::cout << "Index of c is " << index_of_c << ", length is " << bstrlen(str) << std::endl;
+    std::cout << "Index of c is " << index_of_c << ", length is " << strlen(str) << std::endl;
 
 }
 
