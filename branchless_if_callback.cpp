@@ -1,8 +1,12 @@
 #include <iostream>
 
 
+/// Call the callback function if the condition is met
 void if_then(bool condition, void (*callback)()) {
+
+    /// A struct containing handler functions
     struct Local {
+        /// Handler function in case the condition is false (do nothing)
         static void c0() {}
     };
 
