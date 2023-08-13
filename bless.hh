@@ -50,6 +50,26 @@ namespace bless {
     }
 
 
+    /// Expands to an if-else statement surrogate
+    #define bif_else(condition, if_body, else_body) {       \
+        __label__ RTSZ(0), RTSZ(1), RTSZ(2);                \
+    \
+        void* cases[2] = { && RTSZ(1), && RTSZ(0) };        \
+    \
+        goto *cases[condition];                             \
+        RTSZ(0):                                            \
+    \
+        if_body;                                            \
+        goto RTSZ(2);                                       \
+    \
+        RTSZ(1):                                            \
+        else_body;                                          \
+    \
+        RTSZ(2):                                            \
+        ;                                                   \
+    }
+
+
     /// Expands to a while loop surrogate
     #define bwhile(condition, body) {                       \
         __label__ RTSZ(0), RTSZ(1), RTSZ(2);                \

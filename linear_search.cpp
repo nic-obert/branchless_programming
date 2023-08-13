@@ -1,6 +1,11 @@
 #include <iostream>
 
 #include "bcstring.hh"
+#include "utils.hh"
+
+
+using namespace utils;
+using namespace bcstring;
 
 
 isize recursive_search(const char* bytes, usize index, usize length, char target) {

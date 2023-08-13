@@ -19,16 +19,18 @@ namespace utils {
         bool some;
         T value;
 
+
+        constexpr Option<T> () {
+            this-> some = false;
+        }
+
     public:
+
+        static const Option<T> None;
 
         Option<T> (T value) {
             this->some = true;
             this->value = value;
-        }
-
-
-        static Option<T> None() {
-            return Option { false, nullptr };
         }
 
 
@@ -47,6 +49,8 @@ namespace utils {
         }
 
     };
+
+    template <typename T> const Option<T> Option<T>::None = Option<T>();
 
 }
 

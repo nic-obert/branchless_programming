@@ -9,7 +9,7 @@ namespace bcstring {
 
     using namespace utils;
     using namespace bless;
-    
+
 
     usize recursive_strlen(const char* c, usize cur_length) {
 
@@ -134,7 +134,7 @@ namespace bcstring {
             });
         });
 
-        return Option<usize>::None();
+        return Option<usize>::None;
     }
 
 }

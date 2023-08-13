@@ -17,20 +17,25 @@ namespace bcstdlib {
         bif(c >= '0' && c <= '9', {
             return Option(c - '0');
         });
-        return Option<int>::None();
+        return Option<int>::None;
     }
 
 
     Option<int> atoi(const char* str) {
 
         // Find first non-whitespace character
-        Option<usize> op = find_first(str, isspace);
+        Option<usize> op = find_first(str, [](char c){ return !isspace(c); });
 
         bif(op.is_none(), {
-            return Option<int>::None();
+            return Option<int>::None;
         });
 
         usize i = op.unwrap();
+
+        // Check if the char is a valid digit before starting the conversion
+        bif(!isdigit(str[i]) && str[i] != '-', {
+            return Option<int>::None;
+        });
 
         bool is_negative = str[i] == '-';
         i += is_negative;
@@ -42,7 +47,7 @@ namespace bcstdlib {
             bif(op.is_none(), {
                 return (number * !is_negative) + (-number * is_negative);
             });
-            number += op.unwrap();
+            number = number * 10 + op.unwrap();
         });
 
         return (number * !is_negative) + (-number * is_negative);
