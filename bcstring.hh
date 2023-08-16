@@ -90,7 +90,7 @@ namespace bcstring {
     }
 
 
-    /// @brief Copy `num` bytes from `src` to `dest`. Note: the memory regions shouldn't overlap.
+    /// @brief Copy `num` bytes from `src` to `dest`. Note: the memory regions shouldn't unsafely overlap.
     /// @param dest address of the destination memory region
     /// @param src address of the source memory region
     /// @param num number of bytes to copy
@@ -101,7 +101,7 @@ namespace bcstring {
     }
 
 
-    /// @brief Copy `num` bytes from `src` to `dest`. If the memory regions are overlapping, use an intermediate buffer to ensure correct copying.
+    /// @brief Copy `num` bytes from `src` to `dest`. If the memory regions are unsafely overlapping, use an intermediate buffer to ensure correct copying.
     /// @param dest address of the destination memory region
     /// @param src address of the source memory region
     /// @param num number of bytes to copy
@@ -116,9 +116,9 @@ namespace bcstring {
         auto non_overlapping = [dest, src, num] () -> void {
             memcpy(dest, src, num);
         };
-
-        // Check for overlaps
-        if_then_else((char*)dest + num > src || (char*)src + num > dest,
+        
+        // Check for unsafe overlaps
+        if_then_else(src < dest && (char*)src + num > dest,
             overlapping,
             non_overlapping
         );
