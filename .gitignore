@@ -1,3 +1,13 @@
 *.out
 *.gch
 .vscode
+__pycache__
+*.pyc
+build
+dist
+target
+debug
+release
+*.so
+*.o
+*.a
